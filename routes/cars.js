@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Cars = require('../models/cars')
 const { isLoggedIn } = require('../lib/protect')
+const request = require('request')
 
 /* GET users listing. */
 router.get('/', isLoggedIn, async(req, res, next) => {
@@ -12,6 +13,16 @@ router.get('/', isLoggedIn, async(req, res, next) => {
 router.get('/api', isLoggedIn, async(req, res, next) => {
   const cars = await Cars.find({user_id: req.user})
   res.json({cars});
+});
+
+router.get('/rickapi', isLoggedIn, async(req, res, next) => {
+  request({ url: 'https://rickandmortyapi.com/api', json: true },(error, {body} = {}) => {
+    if (error) {
+      return console.log(error);
+    }
+    
+    res.render('cars/api',{body})
+  })
 });
 
 router.get('/add', isLoggedIn, async(req, res, next) => {

@@ -6,7 +6,7 @@ const { isLoggedIn, isNotLoggedIn } = require('../lib/protect')
 
 /* GET home page. */
 router.get('/', async(req, res, next) => {
-  res.render('index');
+  res.redirect('/signin');
 });
 
 router.get('/signin', isNotLoggedIn, async(req, res, next) => {
