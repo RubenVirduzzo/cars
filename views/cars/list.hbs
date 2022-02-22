@@ -1,0 +1,29 @@
+<div class="text-center m-5">
+    <h1>My Cars</h1>
+
+    <h3>Welcome {{user.fullname}}</h3>
+    <h3>User: {{user.username}}</h3>
+    <h3>E-mail {{user.email}}</h3>
+</div>
+
+{{#each cars}}
+<div class="d-flex justify-content-center m-5">
+    <div class="card text-center col-4">
+        <div class="card-header">
+            Cars
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{marca}}</h5>
+            <p class="card-text">{{potencia}}</p>
+            <img style="width:200px;" src="{{url}}" alt="car">
+            <div class="p-4">
+                <a class="btn btn-primary" href="/cars/edit/{{id}}">Edit</a>
+                <a class="btn btn-primary" href="/cars/delete/{{id}}">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{{else}}
+    <h1>There are no cars yet</h1>
+    <a href="/cars/add">Add one</a>
+{{/each}}

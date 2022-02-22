@@ -1,0 +1,28 @@
+<nav class="bg-primary p-4">
+    
+    <ul class="nav justify-content-center">
+        {{#if user}}
+            <li class="nav-item">
+                <a class="font-weight-bold nav-link text-white" href="/cars">My cars</a>
+            </li>
+            <li class="nav-item">
+                <a class="font-weight-bold nav-link text-white" href="/cars/add">Add car</a>
+            </li>
+            <li class="nav-item">
+                <a class="font-weight-bold nav-link text-white" href="/cars/api">Api cars</a>
+            </li>
+            <li class="nav-item">
+                <a class="font-weight-bold nav-link text-white" href="/logout">Log out</a>
+            </li>
+        {{else}}  
+            <li class="nav-item">
+                <a class="font-weight-bold nav-link text-white" href="/signin">Sign in</a>
+            </li>
+            <li class="nav-links ">
+                <a class="font-weight-bold nav-link text-white" href="/signup">Sign up</a>
+            </li>
+        {{/if}}
+    </ul>
+
+</nav>
+
