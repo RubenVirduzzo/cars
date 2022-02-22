@@ -13,11 +13,15 @@ mongoose.connect('mongodb://127.0.0.1/cars', {
 })
 .then(() => {console.log('DB CONNECTED')})
 .catch(() => {console.log('UNABLE TO CONNECT TO DATABASE')})
+const passport = require('passport')
+const Store = require('express-session').Store
+const MongooseStore = require('mongoose-express-session')(Store)
+require('./lib/passport')
+
 /****************************************************************/
 
-
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var carsRouter = require('./routes/cars');
 
 var app = express();
 
@@ -32,8 +36,26 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(require('express-session')({
+  secret: '1234',
+  resave: false,
+  rolling: false,
+  saveUninitialized: false,
+  store: new MongooseStore({
+    mongoose: mongoose
+  })
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  app.locals.user = req.user
+  next()
+})
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/cars', carsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
